@@ -24,6 +24,8 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
+          context: ./exercise_3
+          file: ./exercise_3/Dockerfile
           push: true
-          tags: user/app:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/app:latest
 
