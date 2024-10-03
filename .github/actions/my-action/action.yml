@@ -1,0 +1,17 @@
+name: Greeting
+description: Receives a parameter and prints it out.
+
+inputs:
+  custom_param:
+    description: Custom input parameter
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      name: Print the parameter value
+      env:
+        custom_param: ${{ inputs.custom_param }}
+      run: |
+        echo "Hello $custom_param !"
