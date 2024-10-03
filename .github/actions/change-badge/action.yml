@@ -1,17 +1,9 @@
-name: Badge changer
-description: Receives a result and changes badge accordingly.
-
+name: "Badge changer"
+description: "Receives a result and changes badge accordingly"
 inputs:
   badge_color:
-    description: Dependency
+    description: 'color'
     required: true
-
 runs:
-  using: composite
-  steps:
-    - shell: bash
-      name: Print the parameter value
-      env:
-        badge_color: ${{ inputs.badge_color }}
-      run: |
-        echo "Hello $custom_param !"
+  using: "node12"
+  main: "entrypoint.sh"

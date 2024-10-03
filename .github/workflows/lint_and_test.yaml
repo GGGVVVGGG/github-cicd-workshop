@@ -20,7 +20,7 @@ jobs:
           pytest exercise_2
     - name: Set test color
       run: |
-        if [ "${{ needs.lint.result }}" == "success" ]; then
+        if [ $? -eq 1 ]; then
           echo "badge_color==green" >> $GITHUB_ENV
         else
           echo "badge_color==red" >> $GITHUB_ENV
@@ -46,7 +46,7 @@ jobs:
           flake8 exercise_2
     - name: Set lint color
       run: |
-        if [ "${{ needs.lint.result }}" == "success" ]; then
+        if [ $? -eq 1 ]; then
           echo "badge_color==green" >> $GITHUB_ENV
         else
           echo "badge_color==red" >> $GITHUB_ENV
@@ -61,7 +61,7 @@ jobs:
     steps:
     - name: Set final color
       run: |
-        if [ "${{ needs.lint.result }}" == "success" ]; then
+        if [ $? -eq 1 ]; then
           echo "badge_color==green" >> $GITHUB_ENV
         else
           echo "badge_color==red" >> $GITHUB_ENV
