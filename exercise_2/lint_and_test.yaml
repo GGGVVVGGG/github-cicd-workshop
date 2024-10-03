@@ -23,7 +23,7 @@ jobs:
     run: |
       black --check .
       black .
-  code-test:
+  pytest:
     run: |
       pytest exercise_2/test_code.py
       pytest exercise_2
