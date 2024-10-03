@@ -24,6 +24,9 @@ jobs:
       - name: Build Docker Image
         working-directory: exercise_3
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}
+          docker build
 
-  # More jobs can be added
+      - name: Push Docker Image
+        run: |
+          docker push
+
