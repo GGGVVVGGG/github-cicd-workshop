@@ -1,6 +1,7 @@
 name: Custom workflow
 
 on:
+  push:
   schedule:
     - cron: "*/5 * * * *"
 
