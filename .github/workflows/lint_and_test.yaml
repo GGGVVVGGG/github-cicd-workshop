@@ -1,7 +1,7 @@
 name: Python CI
 
 on:
-  pull_request:
+  push:
     branches: [master]
 
 jobs:
@@ -18,8 +18,20 @@ jobs:
           python -m pip install --upgrade pip
           pip install pytest
           pytest exercise_2
+    - name: Set test color
+      run: |
+        if [ "${{ needs.lint.result }}" == "success" ]; then
+          echo "badge_color==green" >> $GITHUB_ENV
+        else
+          echo "badge_color==red" >> $GITHUB_ENV
+    - name: Badge updater
+      uses: ./.github/actions/change-badge
+      with:
+        badge_color: ${{ env.badge_color }}
+
 
   lint:
+    needs: test
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -32,6 +44,34 @@ jobs:
           python -m pip install --upgrade pip
           pip install flake8
           flake8 exercise_2
+    - name: Set lint color
+      run: |
+        if [ "${{ needs.lint.result }}" == "success" ]; then
+          echo "badge_color==green" >> $GITHUB_ENV
+        else
+          echo "badge_color==red" >> $GITHUB_ENV
+    - name: Badge updater
+      uses: ./.github/actions/change-badge
+      with:
+        badge_color: ${{ env.badge_color }}
+
+  badge:
+    needs: ['test','lint']
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set final color
+      run: |
+        if [ "${{ needs.lint.result }}" == "success" ]; then
+          echo "badge_color==green" >> $GITHUB_ENV
+        else
+          echo "badge_color==red" >> $GITHUB_ENV
+    - name: Badge updater
+      uses: ./.github/actions/change-badge
+      with:
+        badge_color: ${{ env.badge_color }}
+
+    
+
 
 
     
