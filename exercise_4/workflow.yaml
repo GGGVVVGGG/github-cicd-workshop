@@ -14,10 +14,22 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build or simulate building
-        # run: sleep 5
+        run: |
+          echo "Building..."
+          sleep 5
 
       - name: Finish building
         run: echo "Build completed successfully"
 
-  # Chain the next job to the previous one and make it deploy
-  # to different environments with manual approvals
+  deploy-to-envs:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        environment: ["dev", "acc", "pro"]
+      max-parallel: 1
+    environment: ${{ matrix.environment }}
+    steps:
+      - name: Deploy task
+        run: echo "Deploying to ${{ matrix.environment }}"
