@@ -12,7 +12,7 @@ jobs:
       - name: Checkout github repository
         uses: actions/checkout@v4
       - name: Greeting
-        uses: .github/actions/my-action
+        uses: ./.github/actions/my-action
         with:
           custom_param: "Georgi"
 
